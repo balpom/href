@@ -1,0 +1,25 @@
+{
+    "name": "balpom/href",
+    "description": "Simple interface for HTTP links.",
+    "type": "library",
+    "homepage": "https://www.balpom.ru",
+    "license": "MIT",
+    "keywords": ["href", "parsing", "link", "web", "weblink", "psr13", "psr-13", "http", "http2", "url", "uri"],
+    "autoload": {
+        "psr-4": {
+            "Balpom\\Href\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mikhail (Balpom)"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "psr/link": "^1.1|^2.0",
+        
+        "balpom/guzzle-downloader": ">=1.1.0",
+        "balpom/links-extractor": ">=1.1.0"
+    }
+}
