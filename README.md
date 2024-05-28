@@ -4,7 +4,7 @@
 ### Href object
 
 Href object implements very simple HrefInterface, which has two methods: link() and mapping().
-This may be very useful for any website parsing (like web.archive.org, anonymouse.org, etc.), which work as webproxy and modify original site links.
+This may be very useful for some website parsing (like web.archive.org, anonymouse.org, etc.), which work as webproxy and modify original site links.
 
 Simple sample for [http://ipmy.ru/](http://ipmy.ru/), which proxying by [http://web.archive.org/](http://web.archive.org/):
 link() method returned *http://ipmy.ru/* string, mapping() method, as variant, returned *http://web.archive.org/web/20230329035950/http://ipmy.ru/* string.
