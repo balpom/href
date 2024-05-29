@@ -1,4 +1,4 @@
- # balpom/href
+# balpom/href
 ## Very simple interface for HTTP links with link mapping.
 
 ### Href object
