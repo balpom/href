@@ -11,12 +11,14 @@ class Href implements HrefInterface
     private string $link;
     private string|null $mapping;
 
-    public function __construct(LinkInterface|string $link, LinkInterface|string|null $mapping = null)
+    public function __construct(LinkInterface|string|null $link, LinkInterface|string|null $mapping = null)
     {
         if ($link instanceof LinkInterface) {
             $link = $link->getHref();
         }
-        $link = trim($link);
+        if (is_string($link)) {
+            $link = trim($link);
+        }
         if (empty($link)) {
             throw new HrefException('Link must be not empty!');
         }
@@ -25,7 +27,9 @@ class Href implements HrefInterface
         if ($mapping instanceof LinkInterface) {
             $mapping = $mapping->getHref();
         }
-        $mapping = trim($mapping);
+        if (is_string($mapping)) {
+            $mapping = trim($mapping);
+        }
         if (empty($mapping)) {
             $this->mapping = $this->link;
         } else {

@@ -21,7 +21,8 @@ interface HrefCollectionInterface
     public function getByLink(string $uri): Href|false;
 
     /**
-     * Returns Href object by link mapping.
+     * Returns Href objects by link mapping.
+     * (Several different links may share a common mapping (canonical page)).
      */
-    public function getByMapping(string $uri): Href|false;
+    public function getByMapping(string $uri): iterable;
 }

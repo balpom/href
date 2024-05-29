@@ -11,7 +11,6 @@ class HrefCollection implements HrefCollectionInterface
 {
     private LinkInterface|array $link;
     private array $links = [];
-    private array $mappings = [];
 
     public function __construct(LinkProviderInterface|Href|string|array $links = [])
     {
@@ -44,12 +43,16 @@ class HrefCollection implements HrefCollectionInterface
         return isset($this->links[$uri]) ? $this->links[$uri] : false;
     }
 
-    public function getByMapping(string $uri): Href|false
+    public function getByMapping(string $uri): array
     {
-        if (isset($this->mappings[$uri])) {
-            $uri = $this->mappings[$uri];
+        $result = [];
+        foreach ($this->links as $href) {
+            if ($uri === $href->mapping()) {
+                $result[] = $href;
+            }
         }
-        return $this->getByLink($uri);
+
+        return $result;
     }
 
     public function with(LinkInterface|Href|string $link, LinkInterface|string|null $mapping = null): static
@@ -77,34 +80,21 @@ class HrefCollection implements HrefCollectionInterface
             }
         }
 
-        if ($mapping <> $uri && !isset($this->mappings[$mapping])) {
-            $key = array_search($uri, $this->mappings);
-            if (!empty($key) && isset($this->mappings[$key])) {
-                unset($this->mappings[$key]); // Delete old mapping for $uri.
-            }
-            $this->mappings[$mapping] = $uri;
-        }
-
         return $this;
     }
 
     public function without(LinkInterface|Href|string $link): static
     {
         if ($link instanceof Href) {
-            $mapping = $link->mapping();
             $link = $link->link();
         } else {
             if ($link instanceof LinkInterface) {
                 $link = $link->getHref();
             }
-            $mapping = $link;
         }
 
         if (isset($this->links[$link])) {
             unset($this->links[$link]);
-        }
-        if (isset($this->mappings[$mapping])) {
-            unset($this->mappings[$mapping]);
         }
 
         return $this;
