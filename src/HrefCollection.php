@@ -65,18 +65,20 @@ class HrefCollection implements HrefCollectionInterface
         }
         if ($link instanceof LinkInterface) {
             $link = $link->getHref();
+            if (empty($mapping)) {
+                $mapping = $link;
+            }
         }
 
         $href = new Href($link, $mapping);
-        $uri = $href->link();
         $mapping = $href->mapping();
 
-        if (!isset($this->links[$uri])) {
-            $this->links[$uri] = $href;
+        if (!isset($this->links[$link])) {
+            $this->links[$link] = $href;
         } else {
-            $oldMapping = $this->links[$uri]->mapping();
+            $oldMapping = $this->links[$link]->mapping();
             if ($oldMapping <> $mapping) {
-                $this->links[$uri] = $href;
+                $this->links[$link] = $href;
             }
         }
 
